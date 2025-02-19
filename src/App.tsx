@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState<{title:string,priority:number}[]>([]);
+  const [task,setTask]=useState<{title:string,priority:number}>({title:"",priority:0});
+  const addTask=()=>{
+   if( task.title.trim()){
+    setTasks([...tasks,task])
+    setTask({title:"",priority:0});
+   }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
+      <form className="bg-white shadow-lg rounded-lg p-6 w-96">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Task Manager</h2>
+
+        <input 
+          type="text" 
+          value={task.title} 
+          onChange={(e) => setTask({ ...task, title: e.target.value })} 
+          placeholder="Enter task title"
+          className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 mb-3"
+        />
+
+        <input 
+          type="number" 
+          value={task.priority} 
+          onChange={(e) => setTask({ ...task, priority: Number(e.target.value) })} 
+          placeholder="Priority"
+          className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
+        />
+
+        <button 
+          type="button"
+          onClick={addTask}
+          className="mt-4 w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition"
+        >
+          Submit Task
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </form>
+
+      <ul className="mt-6 bg-white shadow-lg rounded-lg p-4 w-96">
+        { tasks.map((val,index)=>(
+          <>
+          <h3 className="text-xl font-semibold text-gray-700">Task Details</h3>
+          <li className="text-gray-600 mt-2"><strong>{val.title}</strong> {val.title || "No task added"}</li>
+          <li className="text-gray-600"><strong>{val.priority}</strong> {val.priority}</li>
+          
+          </>
+
+        ))
+
+        }
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;
