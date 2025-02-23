@@ -1,5 +1,5 @@
 import Profile from "./components/profile";
-import ToDoList from "./components/todolist";
+
 
 function App() {
   

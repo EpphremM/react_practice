@@ -54,7 +54,7 @@ function ToDoList() {
             <h1>{count}</h1>
 
             <ul className="mt-6 bg-white shadow-lg rounded-lg p-4 w-96">
-                {tasks.map((val, index) => (
+                {tasks.map((val) => (
                     <>
                         <h3 className="text-xl font-semibold text-gray-700">
                             Task {count} Details
